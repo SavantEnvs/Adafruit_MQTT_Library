@@ -1,0 +1,12 @@
+project: savantenvs/Adafruit_MQTT_Library
+target: fuzz_mqtt_publish
+# NOTE: the server-tar slug is hard-coded to savantenvs/adafruit-mqtt-library, NOT $MAYHEM_PROJECT:
+# mcode-action expands $MAYHEM_PROJECT to the un-normalized "Adafruit_MQTT_Library" while Mayhem's
+# real slug is lowercase with _ -> -, and a testsuite from the un-normalized name is rejected.
+testsuite:
+  - https://$MAYHEM_DOMAIN/savantenvs/adafruit-mqtt-library/$MAYHEM_TARGET/testsuite.tar
+  - file://mayhem/fuzz_mqtt_publish/testsuite
+cmds:
+  - cmd: /mayhem/fuzz_mqtt_publish
+    libfuzzer: true
+    timeout: 5
